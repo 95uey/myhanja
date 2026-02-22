@@ -1,5 +1,5 @@
 
-const hanjaData = [
+const hanjaData100 = [
     { hanja: '一', eum: '일', tteut: '하나' },
     { hanja: '二', eum: '이', tteut: '둘' },
     { hanja: '三', eum: '삼', tteut: '셋' },
@@ -98,8 +98,11 @@ const hanjaData = [
     { hanja: '古', eum: '고', tteut: '옛' },
     { hanja: '多', eum: '다', tteut: '많다' },
     { hanja: '少', eum: '소', tteut: '적다' },
+    { hanja: '國', eum: '국', tteut: '나라' },
+    { hanja: '民', eum: '민', tteut: '백성' },
 ];
 
+// --- Web Component for Hanja Card ---
 class HanjaCard extends HTMLElement {
     constructor() {
         super();
@@ -208,13 +211,15 @@ class HanjaCard extends HTMLElement {
             wrapper.classList.add('correct');
             wrapper.classList.remove('incorrect');
             detailsWrapper.classList.add('hidden');
+            this.dispatchEvent(new CustomEvent('card-updated', { bubbles: true }));
         });
 
         incorrectButton.addEventListener('click', (e) => {
             e.stopPropagation();
             wrapper.classList.add('incorrect');
-            wrapper.classList.remove('correct'); // Corrected this line
+            wrapper.classList.remove('correct');
             detailsWrapper.classList.add('hidden');
+            this.dispatchEvent(new CustomEvent('card-updated', { bubbles: true }));
         });
 
         this.shadowRoot.appendChild(style);
@@ -226,21 +231,68 @@ class HanjaCard extends HTMLElement {
 
 customElements.define('hanja-card', HanjaCard);
 
-// --- App Initialization ---
+// --- App Initialization & Main Logic ---
 
+// Get DOM Elements
 const hanjaGrid = document.getElementById('hanja-grid');
+const levelSelector = document.getElementById('level-selector');
 const resetButton = document.getElementById('reset-button');
+const totalCountEl = document.getElementById('total-count');
+const correctCountEl = document.getElementById('correct-count');
+const incorrectCountEl = document.getElementById('incorrect-count');
 
-// Populate grid
-hanjaData.forEach(item => {
-    const hanjaCard = document.createElement('hanja-card');
-    hanjaCard.setAttribute('hanja', item.hanja);
-    hanjaCard.setAttribute('eum', item.eum);
-    hanjaCard.setAttribute('tteut', item.tteut);
-    hanjaGrid.appendChild(hanjaCard);
+// Function to update progress display
+function updateProgress() {
+    const allCards = document.querySelectorAll('hanja-card');
+    let correctCount = 0;
+    let incorrectCount = 0;
+
+    allCards.forEach(card => {
+        const cardShadowRoot = card.shadowRoot;
+        const wrapper = cardShadowRoot.querySelector('.hanja-card');
+        if (wrapper.classList.contains('correct')) {
+            correctCount++;
+        } else if (wrapper.classList.contains('incorrect')) {
+            incorrectCount++;
+        }
+    });
+
+    correctCountEl.textContent = correctCount;
+    incorrectCountEl.textContent = incorrectCount;
+}
+
+// Function to load Hanja data based on level
+function loadHanjaData(level) {
+    // For now, only 100-character data is available.
+    // We will use this data regardless of the selected level.
+    const dataToLoad = hanjaData100; 
+
+    // Clear existing grid
+    hanjaGrid.innerHTML = '';
+
+    // Populate grid with new data
+    dataToLoad.forEach(item => {
+        const hanjaCard = document.createElement('hanja-card');
+        hanjaCard.setAttribute('hanja', item.hanja);
+        hanjaCard.setAttribute('eum', item.eum);
+        hanjaCard.setAttribute('tteut', item.tteut);
+        hanjaGrid.appendChild(hanjaCard);
+    });
+
+    // Update counts
+    totalCountEl.textContent = `전체: ${dataToLoad.length}`;
+    updateProgress();
+}
+
+// --- Event Listeners ---
+
+// Level selection
+levelSelector.addEventListener('change', (e) => {
+    const selectedLevel = e.target.value;
+    loadHanjaData(selectedLevel);
 });
 
-// Add reset functionality
+// Reset button
 resetButton.addEventListener('click', () => {
     const allCards = document.querySelectorAll('hanja-card');
     allCards.forEach(card => {
@@ -248,4 +300,14 @@ resetButton.addEventListener('click', () => {
         const wrapper = cardShadowRoot.querySelector('.hanja-card');
         wrapper.classList.remove('correct', 'incorrect');
     });
+    updateProgress(); // Update counts after reset
 });
+
+// Card state updates
+document.addEventListener('card-updated', () => {
+    updateProgress();
+});
+
+
+// --- Initial Load ---
+loadHanjaData(levelSelector.value); // Load the default level on startup

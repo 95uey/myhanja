@@ -3,15 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>한자 공부 (Hanja Study)</title>
+    <title>마이 한자</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header>
-        <h1>한자 학습 카드</h1>
-        <button id="reset-button">초기화</button>
+        <h1>마이 한자</h1>
+        <div class="header-controls">
+            <select id="level-selector">
+                <option value="100">100자</option>
+                <option value="500">500자</option>
+                <option value="1000">1000자</option>
+            </select>
+            <div id="progress-tracker">
+                <span id="total-count"></span>
+                <span id="correct-count"></span>
+                <span id="incorrect-count"></span>
+            </div>
+            <button id="reset-button">초기화</button>
+        </div>
     </header>
-    <main id="hanja-grid"></main>
+
+    <main>
+        <div id="hanja-grid"></div>
+    </main>
+
+    <footer>
+        <p>광고 표시 영역</p>
+    </footer>
+
     <script src="main.js"></script>
 </body>
 </html>

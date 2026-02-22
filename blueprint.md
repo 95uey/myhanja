@@ -1,9 +1,9 @@
 
-# Blueprint: Hanja Study App
+# Blueprint: 마이 한자 (My Hanja)
 
 ## Overview
 
-A web-based application for studying basic Hanja (Chinese characters used in Korean). The application will display a list of Hanja characters, allowing users to test their knowledge, track their performance, and reset their progress.
+A web-based application for studying basic Hanja (Chinese characters used in Korean). The application will display a list of Hanja characters based on user-selected levels (100, 500, 1000), allowing users to test their knowledge, track their performance, and reset their progress.
 
 ## Style, Design, and Features
 
@@ -11,17 +11,21 @@ A web-based application for studying basic Hanja (Chinese characters used in Kor
 
 *   **UI/UX:**
     *   A clean, grid-based layout to display Hanja cards.
-    *   A "Reset" button is prominently displayed at the top of the page.
+    *   A header is fixed to the top, containing:
+        *   The application title ("마이 한자").
+        *   A dropdown menu to select the Hanja level (100, 500, or 1000).
+        *   A progress tracker (Total, Correct, Incorrect).
+        *   A "Reset" button.
+    *   A footer area is fixed to the bottom, reserved for advertisements.
     *   Each card initially shows only the Hanja character.
-    *   Clicking a card reveals the meaning (Tteut) and pronunciation (Eum), along with "O" (Correct) and "X" (Incorrect) buttons.
-    *   After the user clicks "O" or "X":
-        *   The card's border color changes to green (correct) or red (incorrect).
-        *   The details and buttons are hidden again, showing only the Hanja and the colored border.
-    *   Clicking the "Reset" button removes all correct/incorrect border colors from all cards.
+    *   Clicking a card reveals the meaning and pronunciation, along with "O" and "X" buttons.
     *   The application is responsive and usable on both desktop and mobile devices.
 *   **Functionality:**
-    *   Displays a curated list of 100 basic Hanja characters.
-    *   Users can reset the learning state of all cards at once.
+    *   Users can select a Hanja level (100, 500, 1000) from a dropdown. **(Note: Currently, all levels display the same 100 characters as a placeholder.)**
+    *   The grid dynamically populates with the characters for the selected level.
+    *   Users can mark their knowledge of each character as correct or incorrect.
+    *   The progress tracker updates in real-time.
+    *   Users can reset the learning state of all cards.
     *   Web Components are used to create interactive `<hanja-card>` elements.
 *   **Technology:**
     *   HTML5
@@ -30,13 +34,10 @@ A web-based application for studying basic Hanja (Chinese characters used in Kor
 
 ## Current Plan
 
-### Task: Add a Reset Button
+### Task: Change Level Selector to Dropdown
 
-1.  **`blueprint.md`:** Update the blueprint to include the reset functionality.
-2.  **`index.html`:** Add a `<header>` element containing a `<button id="reset-button">` before the main grid.
-3.  **`style.css`:** Add styling for the new header and reset button for a clean and intuitive look.
-4.  **`main.js`:**
-    *   Get a reference to the reset button.
-    *   Add a click event listener to the button.
-    *   Inside the listener, query for all `<hanja-card>` elements.
-    *   Iterate through each card, access its shadow DOM, and remove the `.correct` and `.incorrect` classes from the main wrapper element.
+1.  **`blueprint.md`:** Update the level selector description to "dropdown menu".
+2.  **`index.html`:** Replace the button group with a `<select>` element.
+3.  **`style.css`:** Style the new dropdown element.
+4.  **`main.js`:** Adapt the event listener for the `<select>` element.
+
