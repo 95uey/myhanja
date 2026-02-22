@@ -10,7 +10,7 @@ body {
 header {
     background: linear-gradient(135deg, #00796b, #004d40);
     color: white;
-    padding: 0 30px;
+    padding: 10px 20px; /* Reduced padding for mobile */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,13 +18,13 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    height: 65px; /* Fixed height */
+    min-height: 65px;
     box-sizing: border-box;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2rem;
+    font-size: 1.8rem; /* Slightly smaller font size */
     letter-spacing: 1px;
 }
 
@@ -54,7 +54,7 @@ header h1 {
 .control-group button {
     background-color: transparent;
     color: white;
-    width: 50px; /* Fixed width */
+    width: 50px;
 }
 
 .control-group button.active {
@@ -62,10 +62,10 @@ header h1 {
     font-weight: bold;
 }
 
-#level-selector { 
+#level-selector {
     background-color: rgba(255,255,255,0.2);
     color: white;
-    min-width: 120px; /* Fixed min-width */
+    min-width: 120px;
 }
 #level-selector option { color: black; }
 
@@ -73,12 +73,12 @@ header h1 {
     background-color: #ffab40;
     color: #333;
     font-weight: bold;
-    min-width: 90px; /* Fixed min-width */
+    min-width: 90px;
 }
 
 #progress-tracker {
     display: flex;
-    align-items: center; /* Vertical alignment fix */
+    align-items: center;
     gap: 8px;
     font-size: 1rem;
     background-color: rgba(0,0,0,0.2);
@@ -87,24 +87,24 @@ header h1 {
 }
 
 #progress-tracker > div {
-    min-width: 55px; /* Give each item a min-width */
-    text-align: center; /* Center the text inside */
+    min-width: 55px;
+    text-align: center;
 }
 
 
 /* --- Main Content & Card --- */
 main {
-    padding: 40px 30px; /* Increased top/bottom padding */
+    padding: 20px 15px; /* Adjusted padding for mobile */
 }
 
 #hanja-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 25px; /* Increased gap */
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 20px;
 }
 
 .hanja-card {
-    min-height: 200px; /* Allow card to grow */
+    min-height: 180px;
     height: auto;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
@@ -116,12 +116,12 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 15px;
+    padding: 10px;
     transition: all 0.3s;
 }
 
 .hanja-char {
-    font-size: 4.5rem;
+    font-size: 4rem;
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -133,7 +133,7 @@ main {
     display: none; /* Hidden by default */
     flex-direction: column;
     align-items: center;
-    gap: 15px; /* Space between details and buttons */
+    gap: 10px;
 }
 
 .hanja-card.flipped .hanja-info {
@@ -142,19 +142,19 @@ main {
 
 .hanja-card.flipped .hanja-char {
     flex-grow: 0;
-    padding-bottom: 10px; /* Add some space when flipped */
+    padding-bottom: 5px;
 }
 
 .hanja-details {
     display: flex;
-    align-items: baseline; /* Good for aligning text of different sizes */
+    align-items: baseline;
     gap: 8px;
-    flex-wrap: wrap; /* In case of very long text on small screens */
+    flex-wrap: wrap;
     justify-content: center;
 }
 
-.hanja-tteut { font-size: 1.5rem; font-weight: bold; color: #000; }
-.hanja-eum { font-size: 1.1rem; color: #555; }
+.hanja-tteut { font-size: 1.4rem; font-weight: bold; color: #000; }
+.hanja-eum { font-size: 1rem; color: #555; }
 
 .status-controls {
     display: flex;
@@ -162,7 +162,7 @@ main {
     margin-top: 10px;
 }
 
-.status-controls button { width: 40px; height: 40px; border-radius: 50%; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
+.status-controls button { width: 35px; height: 35px; border-radius: 50%; border: none; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: transform 0.2s; }
 .status-controls button:hover { transform: scale(1.1); }
 .correct-btn { background-color: #e8f5e9; color: #2e7d32; }
 .incorrect-btn { background-color: #ffebee; color: #c62828; }
@@ -174,21 +174,59 @@ main {
 footer {
     background-color: #004d40;
     color: #eceff1;
-    padding: 30px;
-    margin-top: 40px;
+    padding: 30px 20px;
+    margin-top: 30px;
 }
 
 .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; margin-bottom: 30px; }
 .footer-section { flex: 1; min-width: 280px; }
-.footer-section h3 { color: #80cbc4; border-bottom: 2px solid #80cbc4; padding-bottom: 10px; margin-top: 0; font-size: 1.4rem; }
-.footer-section p { font-size: 0.95rem; line-height: 1.6; color: #cfd8dc; }
+.footer-section h3 { color: #80cbc4; border-bottom: 2px solid #80cbc4; padding-bottom: 10px; margin-top: 0; font-size: 1.3rem; }
+.footer-section p { font-size: 0.9rem; line-height: 1.6; color: #cfd8dc; }
 .ad-section { display: flex; align-items: center; justify-content: center; min-height: 150px; }
 .copyright { text-align: center; padding-top: 20px; border-top: 1px solid #455a64; font-size: 0.9rem; color: #90a4ae; }
 
-/* --- Responsive Design --- */
+/* --- Responsive Design for Mobile --- */
 @media (max-width: 768px) {
-    header { flex-direction: column; align-items: flex-start; gap: 15px; height: auto; }
-    .header-controls { width: 100%; flex-direction: column; align-items: stretch; }
-    #hanja-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-    .footer-content { flex-direction: column; }
+    header {
+        flex-wrap: wrap; /* Allow items to wrap to the next line */
+        justify-content: center; /* Center items for a cleaner look */
+        padding: 15px;
+        gap: 15px;
+        height: auto; /* Allow height to adjust based on content */
+    }
+
+    header h1 {
+        width: 100%; /* Make title take full width */
+        text-align: center; /* Center the title text */
+        font-size: 1.6rem; /* Adjust font size for mobile */
+        margin-bottom: 5px; /* Add some space below the title */
+    }
+
+    .header-controls {
+        width: 100%;
+        flex-wrap: wrap; /* Allow controls to wrap */
+        justify-content: center; /* Center the controls */
+        gap: 10px; /* Adjust gap for mobile */
+    }
+
+    .control-group button, #level-selector, #reset-button {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    #progress-tracker {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+        flex-grow: 1; /* Allow it to take available space */
+        justify-content: center;
+    }
+    
+    #hanja-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 15px;
+    }
+
+    .footer-content { 
+        flex-direction: column; 
+    }
 }
